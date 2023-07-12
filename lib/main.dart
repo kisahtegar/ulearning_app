@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ulearning_app/pages/welcome/welcome.dart';
 
-import 'pages/welcome/bloc/bloc/welcome_bloc.dart';
+import 'pages/welcome/bloc/welcome_bloc.dart';
+import 'pages/welcome/welcome.dart';
 
 void main() async {
   await ScreenUtil.ensureScreenSize();
@@ -22,10 +22,13 @@ class App extends StatelessWidget {
         ),
       ],
       child: ScreenUtilInit(
-        builder: (context, child) => const MaterialApp(
+        builder: (context, child) => MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
-          home: Welcome(),
+          home: const Welcome(),
+          routes: {
+            "HomePage": (context) => const HomePage(),
+          },
         ),
       ),
     );
@@ -39,7 +42,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomePage'),
+        title: const Text('HomePage'),
       ),
     );
   }
