@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'pages/welcome/bloc/welcome_bloc.dart';
-import 'pages/welcome/welcome.dart';
+import 'common/routes/routes.dart';
+import 'common/values/colors.dart';
+import 'global.dart';
 
 void main() async {
-  await ScreenUtil.ensureScreenSize();
+  await Global.init();
   runApp(const App());
 }
 
@@ -16,33 +17,19 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => WelcomeBloc(),
-        ),
-      ],
+      providers: [...AppPages.allBlocProviders(context)],
       child: ScreenUtilInit(
         builder: (context, child) => MaterialApp(
-          title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
-          home: const Welcome(),
-          routes: {
-            "HomePage": (context) => const HomePage(),
-          },
+          theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              iconTheme: IconThemeData(color: AppColors.primaryText),
+              elevation: 0,
+              backgroundColor: Colors.white,
+            ),
+          ),
+          onGenerateRoute: AppPages.generateRouteSettings,
         ),
-      ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomePage'),
       ),
     );
   }

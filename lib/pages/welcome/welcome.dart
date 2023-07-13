@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../common/values/colors.dart';
+import '../../common/values/constant.dart';
+import '../../global.dart';
 import 'bloc/welcome_bloc.dart';
 
+/// Implement Welcome page.
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
 
@@ -72,8 +76,8 @@ class _WelcomeState extends State<Welcome> {
                       dotsCount: 3,
                       mainAxisAlignment: MainAxisAlignment.center,
                       decorator: DotsDecorator(
-                        color: Colors.grey,
-                        activeColor: Colors.blue,
+                        color: AppColors.primaryThridElementText,
+                        activeColor: AppColors.primaryElement,
                         size: const Size.square(8.0),
                         activeSize: const Size(18.0, 8.0),
                         activeShape: RoundedRectangleBorder(
@@ -112,7 +116,7 @@ class _WelcomeState extends State<Welcome> {
         Text(
           title,
           style: TextStyle(
-            color: Colors.black,
+            color: AppColors.primaryText,
             fontSize: 24.sp,
             fontWeight: FontWeight.normal,
           ),
@@ -123,7 +127,7 @@ class _WelcomeState extends State<Welcome> {
           child: Text(
             subTitle,
             style: TextStyle(
-              color: Colors.black.withOpacity(0.5),
+              color: AppColors.primarySecondaryElementText,
               fontSize: 14.sp,
               fontWeight: FontWeight.normal,
             ),
@@ -140,9 +144,20 @@ class _WelcomeState extends State<Welcome> {
                 curve: Curves.decelerate,
               );
             } else {
+              debugPrint(
+                'The value is ${Global.storageService.getDeviceFirstOpen()}',
+              );
+
+              // When app open the first time, we can save the value to indicates
+              // that the user has already opened the welome page.
+              Global.storageService.setBool(
+                AppConstants.STORAGE_DEVICE_OPEN_FIRST_TIME,
+                true,
+              );
+
               // jump to new page.
               Navigator.of(context).pushNamedAndRemoveUntil(
-                'HomePage',
+                '/sign_in',
                 (route) => false,
               );
             }
@@ -156,7 +171,7 @@ class _WelcomeState extends State<Welcome> {
             width: 325.w,
             height: 50.h,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: AppColors.primaryElement,
               borderRadius: BorderRadius.all(Radius.circular(15.w)),
               boxShadow: [
                 BoxShadow(

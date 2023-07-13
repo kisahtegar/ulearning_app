@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -32,7 +33,6 @@ class CallMessage {
   String? type;
   Timestamp? last_time;
 
-
   CallMessage({
     this.doc_id,
     this.token,
@@ -41,6 +41,5 @@ class CallMessage {
     this.call_time,
     this.type,
     this.last_time,
-
   });
 }
