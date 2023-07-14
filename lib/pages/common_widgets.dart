@@ -30,20 +30,20 @@ AppBar buildAppBar({String? titleText}) {
 Widget buildThirdPartyLogin(BuildContext context) {
   return Container(
     margin: EdgeInsets.only(top: 40.h, bottom: 20.h),
-    padding: EdgeInsets.only(left: 25.w, right: 25.w),
+    padding: EdgeInsets.only(left: 50.w, right: 50.w),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _reusableIcons('google'),
-        _reusableIcons('apple'),
-        _reusableIcons('facebook'),
+        _reuseableIcons('google'),
+        _reuseableIcons('apple'),
+        _reuseableIcons('facebook'),
       ],
     ),
   );
 }
 
 /// This used to showing icons.
-GestureDetector _reusableIcons(String iconName) {
+GestureDetector _reuseableIcons(String iconName) {
   return GestureDetector(
     onTap: () {},
     child: SizedBox(
@@ -55,7 +55,7 @@ GestureDetector _reusableIcons(String iconName) {
 }
 
 /// This used to showing text.
-Widget reusableText(String text) {
+Widget reuseableText(String text) {
   return Container(
     margin: EdgeInsets.only(bottom: 5.h),
     child: Text(

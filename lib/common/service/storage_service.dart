@@ -41,4 +41,9 @@ class StorageService {
         ? false
         : true;
   }
+
+  /// Remove previous data from the storage through `SharedPreferences`.
+  Future<bool> remove(String key) {
+    return _prefs.remove(key);
+  }
 }

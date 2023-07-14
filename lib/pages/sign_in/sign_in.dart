@@ -31,7 +31,8 @@ class _SignInState extends State<SignIn> {
                   children: [
                     buildThirdPartyLogin(context),
                     Center(
-                      child: reusableText('Or use your email account to login'),
+                      child:
+                          reuseableText('Or use your email account to login'),
                     ),
                     // Group email and password.
                     Container(
@@ -40,7 +41,7 @@ class _SignInState extends State<SignIn> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          reusableText('Email'),
+                          reuseableText('Email'),
                           SizedBox(height: 5.h),
                           buildTextField(
                             hintText: 'Enter your email address',
@@ -51,7 +52,7 @@ class _SignInState extends State<SignIn> {
                             },
                           ),
                           SizedBox(height: 5.h),
-                          reusableText('Password'),
+                          reuseableText('Password'),
                           buildTextField(
                             hintText: 'Enter your password',
                             textType: 'password',
@@ -66,6 +67,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     forgotPassword(),
+                    SizedBox(height: 70.h),
                     buildLogInAndRegButton(
                       buttonName: 'Log In',
                       buttonType: 'login',

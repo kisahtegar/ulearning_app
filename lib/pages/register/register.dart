@@ -31,18 +31,18 @@ class _RegisterState extends State<Register> {
                   children: [
                     SizedBox(height: 20.h),
                     Center(
-                      child: reusableText(
+                      child: reuseableText(
                         'Enter your details below and free sign up',
                       ),
                     ),
                     // Group email and password.
                     Container(
-                      margin: EdgeInsets.only(top: 36.h),
+                      margin: EdgeInsets.only(top: 60.h),
                       padding: EdgeInsets.only(left: 25.w, right: 25.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          reusableText('Username'),
+                          reuseableText('Username'),
                           buildTextField(
                             hintText: 'Enter your username',
                             textType: 'name',
@@ -53,7 +53,7 @@ class _RegisterState extends State<Register> {
                                   .add(UserNameEvent(value));
                             },
                           ),
-                          reusableText('Email'),
+                          reuseableText('Email'),
                           buildTextField(
                             hintText: 'Enter your email address',
                             textType: 'email',
@@ -64,7 +64,7 @@ class _RegisterState extends State<Register> {
                                   .add(EmailEvent(value));
                             },
                           ),
-                          reusableText('Password'),
+                          reuseableText('Password'),
                           buildTextField(
                             hintText: 'Enter your password',
                             textType: 'password',
@@ -75,7 +75,7 @@ class _RegisterState extends State<Register> {
                                   .add(PasswordEvent(value));
                             },
                           ),
-                          reusableText('Confirm Password'),
+                          reuseableText('Confirm Password'),
                           buildTextField(
                             hintText: 'Re-enter your password to confirm',
                             textType: 'password',
@@ -91,7 +91,7 @@ class _RegisterState extends State<Register> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 25.w),
-                      child: reusableText(
+                      child: reuseableText(
                         'By creating an account you have to agree with our terms and conditions',
                       ),
                     ),

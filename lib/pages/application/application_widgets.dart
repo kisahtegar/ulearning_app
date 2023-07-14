@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/values/colors.dart';
+import '../home/home_page.dart';
+import '../profile/profile_page.dart';
 
 /// List of build page.
 Widget buildPage(int index) {
   List<Widget> widgets = [
-    const Center(child: Text('Home')),
+    const HomePage(),
     const Center(child: Text('Search')),
     const Center(child: Text('Course')),
     const Center(child: Text('Chat')),
-    const Center(child: Text('Profile')),
+    const ProfilePage(),
   ];
   return widgets[index];
 }
@@ -82,7 +84,7 @@ List<BottomNavigationBarItem> bottomTabs = [
     ),
   ),
   BottomNavigationBarItem(
-    label: 'Profile',
+    label: 'ProfilePage',
     activeIcon: SizedBox(
       width: 15.w,
       height: 15.h,

@@ -19,6 +19,8 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [...AppPages.allBlocProviders(context)],
       child: ScreenUtilInit(
+        // this will change the size adapting, when we used size with this package
+        designSize: const Size(375, 812),
         builder: (context, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
