@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' show BuildContext, Navigator;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../common/values/constant.dart';
 import '../../common/widgets/flutter_toast.dart';
 import 'bloc/register_bloc.dart';
 
@@ -50,7 +49,7 @@ class RegisterController {
         await credential.user?.sendEmailVerification();
         await credential.user?.updateDisplayName(userName);
         // default photo from server.
-        String photoUrl = '${AppConstants.SERVER_API_URL}uploads/default.png';
+        String photoUrl = 'uploads/default.png';
         await credential.user?.updatePhotoURL(photoUrl); // update photo url
         toastInfo(
           msg:

@@ -20,6 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void removeUserData() {
     context.read<AppBloc>().add(const TriggerAppEvent(0));
     Global.storageService.remove(AppConstants.STORAGE_USER_TOKEN_KEY);
+    Global.storageService.remove(AppConstants.STORAGE_USER_PROFILE_KEY);
     Navigator.of(context)
         .pushNamedAndRemoveUntil(AppRoutes.SIGN_IN, (route) => false);
   }
@@ -32,12 +33,10 @@ class _SettingsPageState extends State<SettingsPage> {
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return SingleChildScrollView(
-            child: Container(
-              child: Column(
-                children: [
-                  settingsButton(context, removeUserData),
-                ],
-              ),
+            child: Column(
+              children: [
+                settingsButton(context, removeUserData),
+              ],
             ),
           );
         },

@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../entities/entities.dart';
 import '../values/constant.dart';
 
 /// This `StorageService` used to store data applications.
@@ -45,5 +48,19 @@ class StorageService {
   /// Remove previous data from the storage through `SharedPreferences`.
   Future<bool> remove(String key) {
     return _prefs.remove(key);
+  }
+
+  /// This method is used to get user profile information.
+  UserItem? getUserProfile() {
+    // this come from local storage data.
+    var profileOffline =
+        _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY) ?? '';
+    // jsonDecode will formating data profileOffline is string to json.
+    if (profileOffline.isNotEmpty) {
+      return UserItem.fromJson(jsonDecode(profileOffline));
+    }
+
+    // if empty return  nothing
+    return null;
   }
 }

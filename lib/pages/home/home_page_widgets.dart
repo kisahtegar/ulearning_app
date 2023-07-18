@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/values/colors.dart';
+import '../../common/values/constant.dart';
 import '../../common/widgets/base_text_widget.dart';
 import 'bloc/home_page_bloc.dart';
 
 /// This used to show app bar.
-AppBar buildAppBar() {
+AppBar buildAppBar(String avatar) {
   return AppBar(
     title: Container(
       margin: EdgeInsets.only(left: 7.w, right: 7.w),
@@ -25,10 +26,10 @@ AppBar buildAppBar() {
             child: Container(
               width: 40.w,
               height: 40.h,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    'assets/icons/person.png',
+                  image: NetworkImage(
+                    '${AppConstants.SERVER_API_URL}$avatar',
                   ),
                 ),
               ),
@@ -150,18 +151,16 @@ Widget slidersView(BuildContext context, HomePageState state) {
           ],
         ),
       ),
-      Container(
-        child: DotsIndicator(
-          dotsCount: 3,
-          position: state.index,
-          decorator: DotsDecorator(
-            color: AppColors.primaryThridElementText,
-            activeColor: AppColors.primaryElement,
-            size: const Size.square(5.0),
-            activeSize: const Size(17.0, 5.0),
-            activeShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-            ),
+      DotsIndicator(
+        dotsCount: 3,
+        position: state.index,
+        decorator: DotsDecorator(
+          color: AppColors.primaryThridElementText,
+          activeColor: AppColors.primaryElement,
+          size: const Size.square(5.0),
+          activeSize: const Size(17.0, 5.0),
+          activeShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
           ),
         ),
       ),
