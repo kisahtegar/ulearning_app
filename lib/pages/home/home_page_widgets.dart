@@ -79,7 +79,7 @@ Widget searchView() {
               height: 16.w,
               child: Image.asset('assets/icons/search.png'),
             ),
-            Container(
+            SizedBox(
               width: 240.w,
               height: 40.h,
               child: TextField(

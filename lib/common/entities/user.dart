@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// Models class for Login requests
 class LoginRequestEntity {
   int? type;
   String? name;
@@ -23,6 +24,7 @@ class LoginRequestEntity {
     this.online,
   });
 
+  /// This method will turn object to json.
   Map<String, dynamic> toJson() => {
         "type": type,
         "name": name,
@@ -35,7 +37,7 @@ class LoginRequestEntity {
       };
 }
 
-//api post response msg
+/// API post response message.
 class UserLoginResponseEntity {
   int? code;
   String? msg;
@@ -47,6 +49,7 @@ class UserLoginResponseEntity {
     this.data,
   });
 
+  /// Maping and return to object.
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
       UserLoginResponseEntity(
         code: json["code"],
@@ -55,7 +58,7 @@ class UserLoginResponseEntity {
       );
 }
 
-// login result
+/// This class is used for Login result, showing user item information.
 class UserItem {
   String? access_token;
   String? token;
@@ -75,6 +78,7 @@ class UserItem {
     this.type,
   });
 
+  /// Maping and return to object.
   factory UserItem.fromJson(Map<String, dynamic> json) => UserItem(
         access_token: json["access_token"],
         token: json["token"],
@@ -85,6 +89,7 @@ class UserItem {
         type: json["type"],
       );
 
+  // Change object to json.
   Map<String, dynamic> toJson() => {
         "access_token": access_token,
         "token": token,
