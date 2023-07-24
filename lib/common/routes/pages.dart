@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../global.dart';
 import '../../pages/application/application_page.dart';
 import '../../pages/application/bloc/app_bloc.dart';
+import '../../pages/course/bloc/course_detail_bloc.dart';
+import '../../pages/course/course_detail.dart';
 import '../../pages/home/bloc/home_page_bloc.dart';
 import '../../pages/home/home_page.dart';
 import '../../pages/profile/settings/bloc/settings_bloc.dart';
@@ -51,6 +53,11 @@ class AppPages {
         route: AppRoutes.SETTINGS_PAGE,
         page: const SettingsPage(),
         bloc: BlocProvider(create: (_) => SettingsBloc()),
+      ),
+      PageEntity(
+        route: AppRoutes.COURSE_DETAIL,
+        page: const CourseDetail(),
+        bloc: BlocProvider(create: (_) => CourseDetailBloc()),
       ),
     ];
   }
