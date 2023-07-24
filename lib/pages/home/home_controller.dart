@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../common/apis/course_api.dart';
 import '../../common/entities/entities.dart';
 import '../../global.dart';
 
@@ -11,7 +12,7 @@ class HomeController {
   UserItem? userProfile = Global.storageService.getUserProfile();
 
   /// Initialize our home controller.
-  void init() {
-    debugPrint('...Home controller init method...');
+  void init() async {
+    await CourseAPI.courseList();
   }
 }

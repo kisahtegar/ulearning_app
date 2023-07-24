@@ -118,7 +118,8 @@ class SignInController {
           AppConstants.STORAGE_USER_PROFILE_KEY,
           jsonEncode(result.data!),
         );
-        // Then will save access token to storage.
+        // This used for authorization in [HttpUtil.post()], that's why we saved
+        // access token to storage.
         Global.storageService.setString(
           AppConstants.STORAGE_USER_TOKEN_KEY,
           result.data!.access_token!, // data is null able so make not null.

@@ -63,4 +63,9 @@ class StorageService {
     // if empty return  nothing
     return null;
   }
+
+  /// This method is used to get user token key.
+  String getUserToken() {
+    return _prefs.getString(AppConstants.STORAGE_USER_TOKEN_KEY) ?? '';
+  }
 }
