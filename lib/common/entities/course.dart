@@ -24,6 +24,7 @@ class SearchRequestEntity {
       };
 }
 
+/// This class is used for Course List Response Entity
 class CourseListResponseEntity {
   int? code;
   String? msg;
@@ -35,6 +36,8 @@ class CourseListResponseEntity {
     this.data,
   });
 
+  /// Maping and return to object. `json['data]` has maps internally.
+  /// so we need to go through fromJson method.
   factory CourseListResponseEntity.fromJson(Map<String, dynamic> json) =>
       CourseListResponseEntity(
         code: json["code"],
@@ -42,7 +45,8 @@ class CourseListResponseEntity {
         data: json["data"] == null
             ? []
             : List<CourseItem>.from(
-                json["data"].map((x) => CourseItem.fromJson(x))),
+                json["data"].map((x) => CourseItem.fromJson(x)),
+              ),
       );
 }
 
@@ -185,7 +189,7 @@ class CourseItem {
         description: json["description"],
         thumbnail: json["thumbnail"],
         video: json["video"],
-        price: json["price"],
+        price: json["price"].toString(),
         amount_total: json["amount_total"],
         lesson_num: json["lesson_num"],
         video_len: json["video_len"],

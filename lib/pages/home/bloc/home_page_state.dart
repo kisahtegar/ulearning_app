@@ -3,8 +3,13 @@ part of 'home_page_bloc.dart';
 /// Implement `HomePageState` class.
 @immutable
 class HomePageState {
+  const HomePageState({
+    this.index = 0,
+    this.courseItem = const <CourseItem>[],
+  });
+
   final int index;
-  const HomePageState({this.index = 0});
+  final List<CourseItem> courseItem;
 
   /// If your classes are `Object` are `immutable` and you want create a new `Object`,
   /// based on that the preferred recommended way to go ahead `withCopy` method.
@@ -17,7 +22,13 @@ class HomePageState {
   /// properties from this.
   ///
   /// releted if you want pass 1 value.
-  HomePageState copyWith({int? index}) {
-    return HomePageState(index: index ?? this.index);
+  HomePageState copyWith({
+    int? index,
+    List<CourseItem>? courseItem,
+  }) {
+    return HomePageState(
+      index: index ?? this.index,
+      courseItem: courseItem ?? this.courseItem,
+    );
   }
 }

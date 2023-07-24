@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../common/entities/course.dart';
 import '../../common/values/colors.dart';
 import '../../common/values/constant.dart';
 import '../../common/widgets/base_text_widget.dart';
@@ -254,14 +255,16 @@ Widget _reuseableMenuText(
 }
 
 /// Showing courses grid.
-Widget courseGrid() {
+Widget courseGrid(CourseItem courseItem) {
   return Container(
     padding: EdgeInsets.all(12.w),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(15.w),
-      image: const DecorationImage(
+      image: DecorationImage(
         fit: BoxFit.fill,
-        image: AssetImage('assets/icons/image_2.png'),
+        image: NetworkImage(
+          AppConstants.SERVER_UPLOADS + courseItem.thumbnail!,
+        ),
       ),
     ),
     child: Column(
@@ -269,7 +272,7 @@ Widget courseGrid() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Best course for IT and Enginering',
+          courseItem.name ?? '',
           maxLines: 1,
           overflow: TextOverflow.fade,
           textAlign: TextAlign.left,
@@ -282,7 +285,7 @@ Widget courseGrid() {
         ),
         SizedBox(height: 5.h),
         Text(
-          'Flutter best course',
+          courseItem.description ?? '',
           maxLines: 1,
           overflow: TextOverflow.fade,
           textAlign: TextAlign.left,

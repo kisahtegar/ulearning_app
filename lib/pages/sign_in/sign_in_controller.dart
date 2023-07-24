@@ -128,9 +128,12 @@ class SignInController {
         // after saving data, we need to remove loading
         EasyLoading.dismiss();
 
-        // This used to move into [ApplicationPage].
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil("/application", (route) => false);
+        // Fixing async gaps
+        if (context.mounted) {
+          // This used to move into [ApplicationPage].
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil("/application", (route) => false);
+        }
       } catch (e) {
         debugPrint('Saving loccal storage error : $e');
       }

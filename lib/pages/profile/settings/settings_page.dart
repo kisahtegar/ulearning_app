@@ -5,6 +5,7 @@ import '../../../common/routes/names.dart';
 import '../../../common/values/constant.dart';
 import '../../../global.dart';
 import '../../application/bloc/app_bloc.dart';
+import '../../home/bloc/home_page_bloc.dart';
 import 'bloc/settings_bloc.dart';
 import 'settings_widget.dart';
 
@@ -19,6 +20,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   void removeUserData() {
     context.read<AppBloc>().add(const TriggerAppEvent(0));
+    context.read<HomePageBloc>().add(const HomePageDots(0)); // reset dot slide
     Global.storageService.remove(AppConstants.STORAGE_USER_TOKEN_KEY);
     Global.storageService.remove(AppConstants.STORAGE_USER_PROFILE_KEY);
     Navigator.of(context)
