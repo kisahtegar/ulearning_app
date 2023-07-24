@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../common/routes/routes.dart';
 import '../../common/values/colors.dart';
 import 'bloc/home_page_bloc.dart';
 import 'home_controller.dart';
@@ -78,7 +79,16 @@ class _HomePageState extends State<HomePage> {
                             childCount: homePageState.courseItem.length,
                             (context, index) {
                               return GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    AppRoutes.COURSE_DETAIL,
+                                    arguments: {
+                                      "id": homePageState.courseItem
+                                          .elementAt(index)
+                                          .id
+                                    },
+                                  );
+                                },
                                 child: courseGrid(
                                   homePageState.courseItem[index],
                                 ),
