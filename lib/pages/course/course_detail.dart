@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../common/widgets/base_text_widget.dart';
+import 'course_detail_widget.dart';
+
+/// Implement class for Course Details Page.
 class CourseDetail extends StatefulWidget {
   const CourseDetail({super.key});
 
@@ -25,10 +30,55 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text(id.values.toString()),
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: buildAppBar(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15.h,
+                    horizontal: 25.w,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // First big image
+                      thumbnail(),
+                      SizedBox(height: 15.h),
+                      // three buttons or menus
+                      menuView(),
+                      SizedBox(height: 15.h),
+                      // course description title
+                      reuseableText('Course Description'),
+                      SizedBox(height: 15.h),
+                      // course description
+                      descriptionText(),
+                      SizedBox(height: 20.h),
+                      // course buy button
+                      goBuyButton('Go Buy'),
+                      SizedBox(height: 20.h),
+                      // course summary tittle
+                      courseSummaryTitle(),
+                      // course summary in list
+                      courseSummaryView(context),
+                      SizedBox(height: 20.h),
+                      // Lesson list title
+                      reuseableText('Lesson List'),
+                      SizedBox(height: 15.h),
+                      // Course lesson list
+                      courseLessonList(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
