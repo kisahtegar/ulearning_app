@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:ulearning_app/pages/home/home_controller.dart';
 
 import '../../common/apis/user_api.dart';
 import '../../common/entities/entities.dart';
@@ -75,7 +76,12 @@ class SignInController {
             loginRequestEntity.type = 1; // type 1 means login with email
 
             // Post all objects data to database.
-            asyncPostAllData(loginRequestEntity);
+            await asyncPostAllData(loginRequestEntity);
+
+            // Call singleton class for HomeController.
+            if (context.mounted) {
+              await HomeController(context: context).init();
+            }
           } else {
             // We have error getting user from firebase.
             toastInfo(msg: 'Currently you are not a user of this app');
@@ -98,7 +104,7 @@ class SignInController {
   }
 
   /// Post all data user to database.
-  void asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
+  Future<void> asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
     // First we need to show loading indicator while post data/login.
     EasyLoading.show(
       indicator: const CircularProgressIndicator(),

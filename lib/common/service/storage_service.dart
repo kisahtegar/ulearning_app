@@ -51,7 +51,7 @@ class StorageService {
   }
 
   /// This method is used to get user profile information.
-  UserItem? getUserProfile() {
+  UserItem getUserProfile() {
     // this come from local storage data.
     var profileOffline =
         _prefs.getString(AppConstants.STORAGE_USER_PROFILE_KEY) ?? '';
@@ -60,8 +60,8 @@ class StorageService {
       return UserItem.fromJson(jsonDecode(profileOffline));
     }
 
-    // if empty return  nothing
-    return null;
+    // if empty return UserItem empty object.
+    return UserItem();
   }
 
   /// This method is used to get user token key.
