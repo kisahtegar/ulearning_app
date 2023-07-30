@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SliverToBoxAdapter(
                   child: homePageText(
-                    userProfile.name!,
+                    userProfile.name ?? "",
                     top: 5,
                   ),
                 ),

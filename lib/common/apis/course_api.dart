@@ -13,4 +13,16 @@ class CourseAPI {
     debugPrint(response.toString());
     return CourseListResponseEntity.fromJson(response);
   }
+
+  /// `/courseDetail` endpoint that used to get course detail.
+  static Future<CourseListResponseEntity> courseDetail({
+    CourseRequestEntity? params,
+  }) async {
+    var response = await HttpUtil().post(
+      'api/courseDetail',
+      queryParameters: params?.toJson(),
+    );
+    debugPrint(response.toString());
+    return CourseListResponseEntity.fromJson(response);
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/widgets/base_text_widget.dart';
+import 'course_detail_controller.dart';
 import 'course_detail_widget.dart';
 
 /// Implement class for Course Details Page.
@@ -13,7 +14,7 @@ class CourseDetail extends StatefulWidget {
 }
 
 class _CourseDetailState extends State<CourseDetail> {
-  late var id;
+  late CourseDetailController _courseDetailController;
 
   @override
   void initState() {
@@ -24,8 +25,8 @@ class _CourseDetailState extends State<CourseDetail> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    id = ModalRoute.of(context)!.settings.arguments as Map;
-    debugPrint(id.values.toString());
+    _courseDetailController = CourseDetailController(context: context);
+    _courseDetailController.init();
   }
 
   @override
