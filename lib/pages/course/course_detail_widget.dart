@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning_app/common/values/constant.dart';
 import 'package:ulearning_app/common/widgets/base_text_widget.dart';
 
 import '../../common/values/colors.dart';
+import 'course_detail/bloc/course_detail_bloc.dart';
 
 /// This widget is used to display AppBar
 AppBar buildAppBar() {
@@ -14,15 +16,15 @@ AppBar buildAppBar() {
 }
 
 /// This widget is used to display thumbnail image.
-Widget thumbnail() {
+Widget thumbnail(String thumbnail) {
   return Container(
     width: 325.w,
     height: 200.h,
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
       image: DecorationImage(
         fit: BoxFit.fitWidth,
-        image: AssetImage(
-          'assets/icons/image_1.png',
+        image: NetworkImage(
+          '${AppConstants.SERVER_UPLOADS}$thumbnail',
         ),
       ),
     ),
@@ -82,9 +84,9 @@ Widget _iconAndNum(String iconPath, int number) {
 }
 
 /// This widget is used to display description.
-Widget descriptionText() {
+Widget descriptionText(String description) {
   return reuseableText(
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    description,
     color: AppColors.primaryThridElementText,
     fontWeight: FontWeight.normal,
     fontSize: 11.sp,
@@ -122,15 +124,21 @@ Widget courseSummaryTitle() {
   );
 }
 
-// Settings sections buttons with mapping.
-var imagesInfo = <String, String>{
-  "36 Hours Video": "video_detail.png",
-  "Total 30 Lessons": "file_detail.png",
-  "67 Downloadable": "download_detail.png",
-};
-
 /// This widget is used to showing list course summary view .
-Widget courseSummaryView(BuildContext context) {
+Widget courseSummaryView(
+  BuildContext context,
+  CourseDetailState courseDetailState,
+) {
+  // Settings sections buttons with mapping.
+  var imagesInfo = <String, String>{
+    "${courseDetailState.courseItem!.video_len ?? "0"} Hours Video":
+        "video_detail.png",
+    "Total ${courseDetailState.courseItem!.lesson_num ?? "0"} Lessons":
+        "file_detail.png",
+    "${courseDetailState.courseItem!.down_num ?? "0"} Downloadable Resources":
+        "download_detail.png",
+  };
+
   return Column(
     children: [
       ...List.generate(
@@ -172,77 +180,91 @@ Widget courseSummaryView(BuildContext context) {
 }
 
 /// This widget is used to display lesson list
-Widget courseLessonList() {
-  return Container(
-    width: 325.w,
-    height: 80.h,
-    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-    decoration: BoxDecoration(
-      color: const Color.fromRGBO(255, 255, 255, 1),
-      borderRadius: BorderRadius.circular(10.w),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.1),
-          spreadRadius: 2,
-          blurRadius: 3,
-          offset: const Offset(0, 1),
-        ),
-      ],
-    ),
-    child: InkWell(
-      onTap: () {},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // For image and text
-          Row(
-            children: [
-              Container(
-                width: 60.w,
-                height: 60.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.h),
-                  image: const DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/icons/image_1.png'),
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // list item title
-                  _listContainer(),
-                  // list item description
-                  _listContainer(
-                    fontSize: 10,
-                    color: AppColors.primaryThridElementText,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ],
+Widget courseLessonList(CourseDetailState courseDetailState) {
+  return SingleChildScrollView(
+    child: ListView.builder(
+      shrinkWrap: true,
+      itemCount: courseDetailState.lessonItem.length,
+      itemBuilder: (context, index) {
+        return Container(
+          margin: EdgeInsets.only(top: 10.h),
+          width: 325.w,
+          height: 80.h,
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(255, 255, 255, 1),
+            borderRadius: BorderRadius.circular(10.w),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 2,
+                blurRadius: 3,
+                offset: const Offset(0, 1),
               ),
             ],
           ),
+          child: InkWell(
+            onTap: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // For image and text
+                Row(
+                  children: [
+                    Container(
+                      width: 60.w,
+                      height: 60.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.h),
+                        image: DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: NetworkImage(
+                            courseDetailState.lessonItem[index].thumbnail!,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // list item title
+                        _listContainer(
+                          courseDetailState.lessonItem[index].name.toString(),
+                        ),
+                        // list item description
+                        _listContainer(
+                          courseDetailState.lessonItem[index].description
+                              .toString(),
+                          fontSize: 10,
+                          color: AppColors.primaryThridElementText,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
 
-          // For showing the right arrow
-          Container(
-            child: Image(
-              height: 24.h,
-              width: 24.h,
-              image: AssetImage(
-                'assets/icons/arrow_right.png',
-              ),
+                // For showing the right arrow
+                Image(
+                  height: 24.h,
+                  width: 24.h,
+                  image: const AssetImage(
+                    'assets/icons/arrow_right.png',
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     ),
   );
 }
 
 /// This widget is part of the `courseLessonList`.
-Widget _listContainer({
+Widget _listContainer(
+  String name, {
   double fontSize = 13,
   Color color = AppColors.primaryText,
   FontWeight fontWeight = FontWeight.bold,
@@ -251,7 +273,7 @@ Widget _listContainer({
     width: 200.w,
     margin: EdgeInsets.only(left: 6.w),
     child: Text(
-      'UI Design',
+      name,
       overflow: TextOverflow.clip,
       maxLines: 1,
       style: TextStyle(

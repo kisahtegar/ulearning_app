@@ -1,8 +1,9 @@
-part of 'course_detail_bloc.dart';
+part of 'course_bloc.dart';
 
+/// Implement `CourseState` class.
 @immutable
-class CourseDetailState {
-  const CourseDetailState({this.courseItem});
+class CourseState {
+  const CourseState({this.courseItem});
 
   final CourseItem? courseItem;
 
@@ -17,10 +18,10 @@ class CourseDetailState {
   /// properties from this.
   ///
   /// releted if you want pass 1 value.
-  CourseDetailState copyWith({
+  CourseState copyWith({
     CourseItem? courseItem,
   }) {
-    return CourseDetailState(
+    return CourseState(
       courseItem: courseItem ?? this.courseItem,
     );
   }

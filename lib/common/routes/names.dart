@@ -22,4 +22,7 @@ class AppRoutes {
 
   /// For showing course detail
   static const COURSE_DETAIL = "/course_detail";
+
+  /// For pay web view
+  static const PAY_WEB_VIEW = "/pay_web_view";
 }
