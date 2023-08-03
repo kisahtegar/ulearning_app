@@ -33,6 +33,12 @@ class _PayWebViewState extends State<PayWebView> {
   }
 
   @override
+  void dispose() {
+    webViewController.clearCache();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<PayWebViewBloc, PayWebViewState>(
       builder: (context, payWebViewState) {
