@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../../common/apis/course_api.dart';
-import '../../../common/entities/course.dart';
+import '../../../common/apis/lesson_api.dart';
+import '../../../common/entities/entities.dart';
 import '../../../common/routes/routes.dart';
 import '../../../common/widgets/flutter_toast.dart';
 import 'bloc/course_detail_bloc.dart';
@@ -19,6 +20,7 @@ class CourseDetailController {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
 
     asyncLoadCourseData(args["id"]);
+    asyncLoadLessonData(args["id"]);
   }
 
   /// This method used to load the course data.
@@ -67,6 +69,24 @@ class CourseDetailController {
       // print('--------my returned stripe url is $url');
     } else {
       toastInfo(msg: result.msg!);
+    }
+  }
+
+  /// This method used to load the lesson data.
+  asyncLoadLessonData(int? id) async {
+    LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
+    lessonRequestEntity.id = id;
+    var result = await LessonAPI.lessonList(params: lessonRequestEntity);
+    if (result.code == 200) {
+      if (context.mounted) {
+        context.read<CourseDetailBloc>().add(TriggerLessonList(result.data!));
+        // print('my lesson list is ${result.data}');
+        // print('my lesson data is ${result.data![0].thumbnail}');
+      } else {
+        print('----context is not read ----');
+      }
+    } else {
+      toastInfo(msg: "Something went wrong check the log");
     }
   }
 }

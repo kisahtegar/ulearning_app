@@ -27,8 +27,10 @@ class _CourseDetailState extends State<CourseDetail> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _courseDetailController = CourseDetailController(context: context);
-    _courseDetailController.init();
+    Future.delayed(const Duration(seconds: 0), () {
+      _courseDetailController = CourseDetailController(context: context);
+      _courseDetailController.init();
+    });
   }
 
   @override

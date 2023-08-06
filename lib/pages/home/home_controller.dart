@@ -43,12 +43,15 @@ class HomeController {
         // Fixing async gaps
         if (context.mounted) {
           context.read<HomePageBloc>().add(HomePageCourseItem(result.data!));
+          return;
         }
       } else {
         debugPrint(result.code.toString());
+        return;
       }
     } else {
       debugPrint('User has already logged out');
     }
+    return;
   }
 }
