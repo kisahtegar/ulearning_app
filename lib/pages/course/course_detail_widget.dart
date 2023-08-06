@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ulearning_app/common/values/constant.dart';
-import 'package:ulearning_app/common/widgets/base_text_widget.dart';
 
+import '../../common/routes/names.dart';
 import '../../common/values/colors.dart';
+import '../../common/values/constant.dart';
+import '../../common/widgets/base_text_widget.dart';
 import 'course_detail/bloc/course_detail_bloc.dart';
 
 /// This widget is used to display AppBar
@@ -204,7 +205,14 @@ Widget courseLessonList(CourseDetailState courseDetailState) {
             ],
           ),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AppRoutes.LESSON_DETAIL,
+                arguments: {
+                  "id": courseDetailState.lessonItem[index].id,
+                },
+              );
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
