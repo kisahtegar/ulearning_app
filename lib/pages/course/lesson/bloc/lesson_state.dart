@@ -2,15 +2,17 @@ part of 'lesson_bloc.dart';
 
 /// Implement `LessonState` class.
 @immutable
-class LessonState {
+class LessonState extends Equatable {
   final List<LessonVideoItem> lessonVideoItem;
   final Future<void>? initializeVideoPlayerFuture;
   final bool isPlay;
+  final int videoIndex;
 
   const LessonState({
     this.lessonVideoItem = const <LessonVideoItem>[],
     this.isPlay = false,
     this.initializeVideoPlayerFuture,
+    this.videoIndex = 0,
   });
 
   /// If your classes are `Object` are `immutable` and you want create a new `Object`,
@@ -35,6 +37,15 @@ class LessonState {
       isPlay: isPlay ?? this.isPlay,
       initializeVideoPlayerFuture:
           initializeVideoPlayerFuture ?? this.initializeVideoPlayerFuture,
+      videoIndex: videoIndex ?? this.videoIndex,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        lessonVideoItem,
+        initializeVideoPlayerFuture,
+        isPlay,
+        videoIndex,
+      ];
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning_app/pages/common_widgets.dart';
 
 import 'bloc/lesson_bloc.dart';
 import 'lesson_controller.dart';
+import 'lesson_detail_widgets.dart';
 
 class LessonDetail extends StatefulWidget {
   const LessonDetail({super.key});
@@ -13,7 +16,6 @@ class LessonDetail extends StatefulWidget {
 
 class _LessonDetailState extends State<LessonDetail> {
   late LessonController _lessonController;
-  int videoIndex = 0;
 
   @override
   void initState() {
@@ -25,6 +27,7 @@ class _LessonDetailState extends State<LessonDetail> {
     super.didChangeDependencies();
     _lessonController = LessonController(context: context);
     context.read<LessonBloc>().add(const TriggerUrlItem(null));
+    context.read<LessonBloc>().add(const TriggerVideoIndex(0));
     _lessonController.init();
   }
 
@@ -36,10 +39,36 @@ class _LessonDetailState extends State<LessonDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Lesson detail'),
-      ),
+    return BlocBuilder<LessonBloc, LessonState>(
+      builder: (context, lessonState) {
+        return SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: buildAppBar(titleText: "Lesson detail"),
+            body: CustomScrollView(
+              slivers: [
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 20.h,
+                    horizontal: 25.w,
+                  ),
+                  sliver: SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        //video preview
+                        videoPlayer(lessonState, _lessonController),
+                        //video buttons
+                        videoControls(lessonState, _lessonController, context)
+                      ],
+                    ),
+                  ),
+                ),
+                videoList(lessonState, _lessonController),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

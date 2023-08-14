@@ -6,5 +6,6 @@ class AppConstants {
   static const String STORAGE_USER_PROFILE_KEY = 'user_profile_key';
   static const String STORAGE_USER_TOKEN_KEY = 'user_token_key';
   static const String SERVER_API_URL = 'http://192.168.0.15:8000/';
+  // static const String SERVER_API_URL = ' https://4ad4-111-94-125-180.ngrok-free.app/';
   static const String SERVER_UPLOADS = '${SERVER_API_URL}uploads/';
 }

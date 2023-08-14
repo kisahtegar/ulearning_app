@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 import '../../../../common/entities/entities.dart';
@@ -12,6 +13,7 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
     on<TriggerLessonVideo>(_triggerLessonVideo);
     on<TriggerUrlItem>(_triggerUrlItem);
     on<TriggerPlay>(_triggerPlay);
+    on<TriggerVideoIndex>(_triggerVideoIndex);
   }
 
   /// Handler events for lesson video.
@@ -37,5 +39,13 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
     Emitter<LessonState> emit,
   ) {
     emit(state.copyWith(isPlay: event.isPlay));
+  }
+
+  /// Handler events for trigger video index.
+  void _triggerVideoIndex(
+    TriggerVideoIndex event,
+    Emitter<LessonState> emit,
+  ) {
+    emit(state.copyWith(videoIndex: event.videoIndex));
   }
 }

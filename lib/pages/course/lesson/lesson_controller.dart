@@ -44,4 +44,26 @@ class LessonController {
       }
     }
   }
+
+  // This function is used to to play video
+  void playVideo(String url) {
+    if (videoPlayerController != null) {
+      videoPlayerController?.pause();
+      videoPlayerController?.dispose();
+    }
+    videoPlayerController = VideoPlayerController.networkUrl(
+      Uri.parse(url),
+    );
+    // Redo everything we done already
+    context.read<LessonBloc>().add(const TriggerPlay(false));
+    context.read<LessonBloc>().add(const TriggerUrlItem(null));
+    // initialize the video player
+    var initPlayer = videoPlayerController?.initialize().then((_) {
+      // setting to beginning video
+      videoPlayerController?.seekTo(const Duration(milliseconds: 0));
+    });
+    context.read<LessonBloc>().add(TriggerUrlItem(initPlayer));
+    context.read<LessonBloc>().add(const TriggerPlay(true));
+    videoPlayerController?.play();
+  }
 }
