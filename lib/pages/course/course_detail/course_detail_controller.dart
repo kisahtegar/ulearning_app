@@ -68,6 +68,7 @@ class CourseDetailController {
       }
       // print('--------my returned stripe url is $url');
     } else {
+      debugPrint("statement");
       toastInfo(msg: result.msg!);
     }
   }
@@ -76,10 +77,22 @@ class CourseDetailController {
   asyncLoadLessonData(int? id) async {
     LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
     lessonRequestEntity.id = id;
-    var result = await LessonAPI.lessonList(params: lessonRequestEntity);
-    if (result.code == 200) {
+    CourseRequestEntity courseRequestEntity = CourseRequestEntity();
+    courseRequestEntity.id = id;
+    var resultLesson = await LessonAPI.lessonList(params: lessonRequestEntity);
+    var resultPay = await CourseAPI.coursePay(params: courseRequestEntity);
+    if (resultPay.msg != "You already bought this course") {
+      context.read<CourseDetailBloc>().add(const TriggerCheckBuy(false));
+    }
+    if (resultPay.msg == "You already bought this course") {
+      context.read<CourseDetailBloc>().add(const TriggerCheckBuy(true));
+    }
+
+    if (resultLesson.code == 200) {
       if (context.mounted) {
-        context.read<CourseDetailBloc>().add(TriggerLessonList(result.data!));
+        context
+            .read<CourseDetailBloc>()
+            .add(TriggerLessonList(resultLesson.data!));
         // print('my lesson list is ${result.data}');
         // print('my lesson data is ${result.data![0].thumbnail}');
       } else {

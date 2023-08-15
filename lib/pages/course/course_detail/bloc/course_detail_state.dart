@@ -5,10 +5,12 @@ class CourseDetailState {
   const CourseDetailState({
     this.courseItem,
     this.lessonItem = const <LessonItem>[],
+    this.checkBuy = false,
   });
 
   final CourseItem? courseItem;
   final List<LessonItem> lessonItem;
+  final bool checkBuy;
 
   /// If your classes are `Object` are `immutable` and you want create a new `Object`,
   /// based on that the preferred recommended way to go ahead `withCopy` method.
@@ -24,10 +26,12 @@ class CourseDetailState {
   CourseDetailState copyWith({
     CourseItem? courseItem,
     List<LessonItem>? lessonItem,
+    bool? checkBuy,
   }) {
     return CourseDetailState(
       courseItem: courseItem ?? this.courseItem,
       lessonItem: lessonItem ?? this.lessonItem,
+      checkBuy: checkBuy ?? this.checkBuy,
     );
   }
 }

@@ -19,3 +19,10 @@ class TriggerLessonList extends CourseDetailEvent {
   const TriggerLessonList(this.lessonItem);
   final List<LessonItem> lessonItem;
 }
+
+/// This event used to trigger check buy.
+@immutable
+class TriggerCheckBuy extends CourseDetailEvent {
+  const TriggerCheckBuy(this.checkBuy);
+  final bool checkBuy;
+}

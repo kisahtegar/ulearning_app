@@ -18,5 +18,10 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<TriggerLessonList>((event, emit) {
       emit(state.copyWith(lessonItem: event.lessonItem));
     });
+
+    // Handle trigger lesson list.
+    on<TriggerCheckBuy>((event, emit) {
+      emit(state.copyWith(checkBuy: event.checkBuy));
+    });
   }
 }

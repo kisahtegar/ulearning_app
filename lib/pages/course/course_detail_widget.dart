@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning_app/common/widgets/flutter_toast.dart';
 
 import '../../common/routes/names.dart';
 import '../../common/values/colors.dart';
@@ -206,12 +207,16 @@ Widget courseLessonList(CourseDetailState courseDetailState) {
           ),
           child: InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(
-                AppRoutes.LESSON_DETAIL,
-                arguments: {
-                  "id": courseDetailState.lessonItem[index].id,
-                },
-              );
+              if (courseDetailState.checkBuy == true) {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.LESSON_DETAIL,
+                  arguments: {
+                    "id": courseDetailState.lessonItem[index].id,
+                  },
+                );
+              } else {
+                toastInfo(msg: 'You need to buy this course before you watch');
+              }
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
