@@ -19,14 +19,14 @@ This application is built using flutter and [laravel as the backend](https://git
 ## 📋 Previews
 This the output application after running the project.
 <p align="center">
-  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_01"  width="200" height="400"/>
-  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_02"  width="200" height="400"/>
-  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_03"  width="200" height="400"/>
-  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_04"  width="200" height="400"/>
-  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_05"  width="200" height="400"/>
-  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_06"  width="200" height="400"/>
-  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_07"  width="200" height="400"/>
-  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_08"  width="200" height="400"/>
+  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_01.png"  width="200" height="400"/>
+  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_02.png"  width="200" height="400"/>
+  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_03.png"  width="200" height="400"/>
+  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_04.png"  width="200" height="400"/>
+  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_05.png"  width="200" height="400"/>
+  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_06.png"  width="200" height="400"/>
+  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_07.png"  width="200" height="400"/>
+  <img src="https://raw.githubusercontent.com/kisahtegar/ulearning_app/main/previews/flutter_08.png"  width="200" height="400"/>
 </p>
 
 ## 🧪 Getting Started
