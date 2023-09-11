@@ -1,4 +1,4 @@
 part of 'welcome_bloc.dart';
 
-/// Implement `WelcomeEvent`.
+/// Represents events that can be triggered within the WelcomeBloc.
 class WelcomeEvent {}

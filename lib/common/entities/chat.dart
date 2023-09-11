@@ -1,18 +1,22 @@
 // ignore_for_file: non_constant_identifier_names
 
+/// A class representing a request entity for synchronizing messages.
 class SyncMessageRequestEntity {
   int? msgid;
+
   SyncMessageRequestEntity({
     this.msgid,
   });
 
+  /// Converts the [SyncMessageRequestEntity] to a JSON map.
   Map<String, dynamic> toJson() => {
         "msgid": msgid,
       };
 }
 
+/// A class representing a request entity for making a call.
 class CallRequestEntity {
-  String? call_type; //1. voice 2. video
+  String? call_type; // 1. voice 2. video
   String? to_token;
   String? to_name;
   String? to_avatar;
@@ -26,6 +30,7 @@ class CallRequestEntity {
     this.doc_id,
   });
 
+  /// Converts the [CallRequestEntity] to a JSON map.
   Map<String, dynamic> toJson() => {
         "call_type": call_type,
         "to_token": to_token,
@@ -35,6 +40,7 @@ class CallRequestEntity {
       };
 }
 
+/// A class representing a request entity for sending a call token.
 class CallTokenRequestEntity {
   String? call_token;
   String? to_token;
@@ -44,12 +50,14 @@ class CallTokenRequestEntity {
     this.to_token,
   });
 
+  /// Converts the [CallTokenRequestEntity] to a JSON map.
   Map<String, dynamic> toJson() => {
         "call_token": call_token,
         "to_token": to_token,
       };
 }
 
+/// A class representing a request entity for sending a chat message.
 class ChatRequestEntity {
   String? content;
   String? type;
@@ -61,6 +69,7 @@ class ChatRequestEntity {
     this.to_token,
   });
 
+  /// Converts the [ChatRequestEntity] to a JSON map.
   Map<String, dynamic> toJson() => {
         "content": content,
         "type": type,
@@ -68,6 +77,7 @@ class ChatRequestEntity {
       };
 }
 
+/// A class representing a chat message.
 class Chat {
   String? from_token;
   String? to_token;
@@ -87,6 +97,7 @@ class Chat {
     this.created_at,
   });
 
+  /// Creates a [Chat] object from a JSON map.
   factory Chat.fromJson(Map<String, dynamic> json) => Chat(
         from_token: json["from_token"],
         to_token: json["to_token"],
@@ -97,6 +108,7 @@ class Chat {
         created_at: json["created_at"],
       );
 
+  /// Converts the [Chat] object to a JSON map.
   Map<String, dynamic> toJson() => {
         "from_token": from_token,
         "to_token": to_token,
@@ -108,6 +120,7 @@ class Chat {
       };
 }
 
+/// A class representing a list of chat messages.
 class MsgListcontent {
   int? msgid;
   String? from_token;
@@ -131,6 +144,7 @@ class MsgListcontent {
     this.created_at,
   });
 
+  /// Creates a [MsgListcontent] object from a JSON map.
   factory MsgListcontent.fromJson(Map<String, dynamic> json) => MsgListcontent(
         from_token: json["from_token"],
         from_avatar: json["from_avatar"],
@@ -143,6 +157,7 @@ class MsgListcontent {
         created_at: json["created_at"],
       );
 
+  /// Converts the [MsgListcontent] object to a JSON map.
   Map<String, dynamic> toJson() => {
         "from_token": from_token,
         "from_name": from_name,
@@ -156,6 +171,7 @@ class MsgListcontent {
       };
 }
 
+/// A class representing the response entity for synchronizing messages.
 class SyncMessageResponseEntity {
   int? code;
   String? msg;
@@ -167,6 +183,7 @@ class SyncMessageResponseEntity {
     this.data,
   });
 
+  /// Creates a [SyncMessageResponseEntity] object from a JSON map.
   factory SyncMessageResponseEntity.fromJson(Map<String, dynamic> json) =>
       SyncMessageResponseEntity(
         code: json["code"],
@@ -177,6 +194,7 @@ class SyncMessageResponseEntity {
                 json["data"].map((x) => MsgListcontent.fromJson(x))),
       );
 
+  /// Converts the [SyncMessageResponseEntity] object to a JSON map.
   Map<String, dynamic> toJson() => {
         "counts": code,
         "msg": msg,

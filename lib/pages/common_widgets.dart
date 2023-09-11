@@ -3,7 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../common/values/colors.dart';
 
-/// App bar for sign in.
+/// Creates a customized AppBar for the Ulearning App.
+///
+/// The AppBar can display a title and a separator line at the bottom.
+/// [titleText] is an optional parameter to specify the title text.
 AppBar buildAppBar({String? titleText}) {
   return AppBar(
     centerTitle: true,
@@ -11,8 +14,7 @@ AppBar buildAppBar({String? titleText}) {
       preferredSize: const Size.fromHeight(1.0),
       child: Container(
         color: AppColors.primarySecondaryBackground,
-        // height defines the thickness of the line.
-        height: 1.0,
+        height: 1.0, // Defines the thickness of the separator line.
       ),
     ),
     title: Text(
@@ -26,7 +28,9 @@ AppBar buildAppBar({String? titleText}) {
   );
 }
 
-/// We need context for accessing bloc.
+/// Builds a row of third-party login icons.
+///
+/// Requires the [BuildContext] for accessing Bloc.
 Widget buildThirdPartyLogin(BuildContext context) {
   return Container(
     margin: EdgeInsets.only(top: 40.h, bottom: 20.h),
@@ -42,10 +46,14 @@ Widget buildThirdPartyLogin(BuildContext context) {
   );
 }
 
-/// This used to showing icons.
+/// Returns a GestureDetector with an icon for a specific third-party login option.
+///
+/// The [iconName] parameter specifies the name of the icon to be displayed.
 GestureDetector _reuseableIcons(String iconName) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      // Handle the tap event for the icon.
+    },
     child: SizedBox(
       width: 40.w,
       height: 40.w,
@@ -54,7 +62,9 @@ GestureDetector _reuseableIcons(String iconName) {
   );
 }
 
-/// This used to showing text.
+/// Creates a reusable text widget with specified styles.
+///
+/// [text] is the text to be displayed.
 Widget reuseableText(String text) {
   return Container(
     margin: EdgeInsets.only(bottom: 5.h),
@@ -69,7 +79,12 @@ Widget reuseableText(String text) {
   );
 }
 
-/// This used to show TextField widget.
+/// Builds a customized TextField widget with optional parameters.
+///
+/// - The [hintText] parameter sets the hint text for the TextField.
+/// - The [textType] parameter is used to specify the type of text input.
+/// - The [iconName] parameter specifies the name of the icon to be displayed.
+/// - The [onChanged] callback function is called when the text changes.
 Widget buildTextField({
   String? hintText,
   String? textType,
@@ -140,14 +155,16 @@ Widget buildTextField({
   );
 }
 
-/// Showing forgot password text.
+/// Displays a "Forgot Password" text widget.
 Widget forgotPassword() {
   return Container(
     margin: EdgeInsets.only(left: 25.w),
     width: 260.w,
     height: 44.h,
     child: GestureDetector(
-      onTap: () {},
+      onTap: () {
+        // Handle the "Forgot Password" action.
+      },
       child: Text(
         'Forgot Password',
         style: TextStyle(
@@ -161,7 +178,11 @@ Widget forgotPassword() {
   );
 }
 
-/// Login and register button.
+/// Builds a login or registration button with specified parameters.
+///
+/// The [buttonName] parameter sets the button's text.
+/// The [buttonType] parameter specifies the type of button (login or registration).
+/// The [onTap] callback function is called when the button is tapped.
 Widget buildLogInAndRegButton({
   required String buttonName,
   required String buttonType,
@@ -183,7 +204,6 @@ Widget buildLogInAndRegButton({
             : AppColors.primaryBackground,
         borderRadius: BorderRadius.circular(15.w),
         border: Border.all(
-          // Check for registration button border color.
           color: buttonType == 'login'
               ? Colors.transparent
               : AppColors.primaryFourthElementText,

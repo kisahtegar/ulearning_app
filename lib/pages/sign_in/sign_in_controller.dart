@@ -13,31 +13,31 @@ import '../../common/widgets/flutter_toast.dart';
 import '../../global.dart';
 import 'bloc/sign_in_bloc.dart';
 
-/// This `SignInController` used to handle registration logic.
+/// The `SignInController` class handles sign-in logic and user authentication.
 class SignInController {
   final BuildContext context;
   const SignInController(this.context);
 
-  /// This method used to handle sign in.
+  /// Handles the sign-in process based on the provided `type` (e.g., email).
   void handleSignIn(String type) async {
     try {
-      // If handleSignIn type is email, then...
+      // If the sign-in type is email...
       if (type == 'email') {
         final state = context.read<SignInBloc>().state;
         String emailAddress = state.email;
         String password = state.password;
 
-        // Check state conditions.
+        // Check if email and password are not empty.
         if (emailAddress.isEmpty) {
-          toastInfo(msg: 'Your need to fill email address.');
+          toastInfo(msg: 'You need to fill in your email address.');
           return;
         }
         if (password.isEmpty) {
-          toastInfo(msg: 'Your need to fill password.');
+          toastInfo(msg: 'You need to fill in your password.');
           return;
         }
 
-        // Try to sign in with email and password.
+        // Attempt to sign in with email and password.
         try {
           final credential =
               await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -45,103 +45,103 @@ class SignInController {
             password: password,
           );
 
-          // Checking user credential.
+          // Check user credential.
           if (credential.user == null) {
-            toastInfo(msg: "You don't exist");
+            toastInfo(msg: "User does not exist.");
             return;
           }
           if (!credential.user!.emailVerified) {
-            toastInfo(msg: 'You need to verify your email account');
+            toastInfo(msg: 'You need to verify your email account.');
             return;
           }
 
           var user = credential.user;
-          // if user exists, then..
+
+          // If user exists...
           if (user != null) {
             // We got verified user from firebase. Then...
             debugPrint('User exist');
 
-            // Take users information.
+            // Retrieve user information.
             String? displayName = user.displayName;
             String? email = user.email;
             String? id = user.uid;
             String? photoUrl = user.photoURL;
 
-            // We creating an objects login entity.
+            // Create a login request entity.
             LoginRequestEntity loginRequestEntity = LoginRequestEntity();
             loginRequestEntity.avatar = photoUrl;
             loginRequestEntity.name = displayName;
             loginRequestEntity.email = email;
             loginRequestEntity.open_id = id;
-            loginRequestEntity.type = 1; // type 1 means login with email
+            loginRequestEntity.type = 1; // Type 1 means login with email
 
-            // Post all objects data to database.
+            // Post user data to the database.
             await asyncPostAllData(loginRequestEntity);
 
-            // Call singleton class for HomeController.
+            // Initialize the HomeController.
             if (context.mounted) {
               await HomeController(context: context).init();
             }
           } else {
-            // We have error getting user from firebase.
-            toastInfo(msg: 'Currently you are not a user of this app');
+            // Error retrieving user from Firebase.
+            toastInfo(msg: 'You are not a user of this app.');
             return;
           }
         } on FirebaseAuthException catch (e) {
-          // Handle error from FirebaseAuthException.
+          // Handle FirebaseAuthException errors.
           if (e.code == 'user-not-found') {
             toastInfo(msg: 'No user found for that email.');
           } else if (e.code == 'wrong-password') {
             toastInfo(msg: 'Wrong password provided for that user.');
           } else if (e.code == 'invalid-email') {
-            toastInfo(msg: 'Your email format is wrong.');
+            toastInfo(msg: 'Invalid email format.');
           }
         }
       }
     } catch (_) {
-      // Implement the error/
+      // Handle errors.
     }
   }
 
-  /// Post all data user to database.
+  /// Posts user data to the database.
   Future<void> asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
-    // First we need to show loading indicator while post data/login.
+    // Show loading indicator while posting data.
     EasyLoading.show(
       indicator: const CircularProgressIndicator(),
       maskType: EasyLoadingMaskType.clear,
       dismissOnTap: true,
     );
 
-    // Waiting for login result.
+    // Wait for the login result.
     var result = await UserApi.login(params: loginRequestEntity);
 
-    // Check status code.
+    // Check the status code.
     if (result.code == 200) {
       try {
-        // This will saving string value to the storage to indicate that
-        // After login we able to save whole information user.
+        // Save user profile data to local storage.
         Global.storageService.setString(
           AppConstants.STORAGE_USER_PROFILE_KEY,
           jsonEncode(result.data!),
         );
-        // This used for authorization in [HttpUtil.post()], that's why we saved
-        // access token to storage.
+
+        // Save access token to local storage for authorization.
         Global.storageService.setString(
           AppConstants.STORAGE_USER_TOKEN_KEY,
-          result.data!.access_token!, // data is null able so make not null.
+          result.data!.access_token!, // Data is nullable, so make it non-null.
         );
 
-        // after saving data, we need to remove loading
+        // Dismiss loading indicator.
         EasyLoading.dismiss();
 
+        // Navigate to the ApplicationPage.
         // Fixing async gaps
         if (context.mounted) {
-          // This used to move into [ApplicationPage].
           Navigator.of(context)
               .pushNamedAndRemoveUntil("/application", (route) => false);
         }
       } catch (e) {
-        debugPrint('Saving loccal storage error : $e');
+        debugPrint('Error saving local storage: $e');
       }
     } else {
       EasyLoading.dismiss();

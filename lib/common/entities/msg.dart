@@ -2,20 +2,21 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// A class representing a message.
 class Msg {
-  final String? from_token;
-  final String? to_token;
-  final String? from_name;
-  final String? to_name;
-  final String? from_avatar;
-  final String? to_avatar;
-  final int? from_online;
-  final int? to_online;
-  final int? from_msg_num;
-  final int? to_msg_num;
-  final String? last_msg;
-  final Timestamp? last_time;
-  final int? msg_num;
+  final String? from_token; // The sender's token.
+  final String? to_token; // The recipient's token.
+  final String? from_name; // The sender's name.
+  final String? to_name; // The recipient's name.
+  final String? from_avatar; // The sender's avatar.
+  final String? to_avatar; // The recipient's avatar.
+  final int? from_online; // The sender's online status.
+  final int? to_online; // The recipient's online status.
+  final int? from_msg_num; // The number of messages sent by the sender.
+  final int? to_msg_num; // The number of messages sent to the recipient.
+  final String? last_msg; // The content of the last message.
+  final Timestamp? last_time; // The timestamp of the last message.
+  final int? msg_num; // The total number of messages.
 
   Msg({
     this.from_token,
@@ -33,6 +34,7 @@ class Msg {
     this.msg_num,
   });
 
+  /// Factory method to create a Msg object from Firestore data.
   factory Msg.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
@@ -55,6 +57,7 @@ class Msg {
     );
   }
 
+  /// Converts the Msg object to a Firestore-compatible Map.
   Map<String, dynamic> toFirestore() {
     return {
       if (from_token != null) "from_token": from_token,

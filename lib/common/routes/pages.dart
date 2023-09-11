@@ -22,10 +22,9 @@ import '../../pages/welcome/bloc/welcome_bloc.dart';
 import '../../pages/welcome/welcome.dart';
 import 'names.dart';
 
-/// This `AppPages` can be used to routes our application pages.
+/// A class to define routes and provide BlocProviders for various pages in the app.
 class AppPages {
-  /// This `routes()` created a lot of routes and injected our BlocProvider. So
-  /// this `routes()` function returns a list of Routes with certain BLoC.
+  /// Defines the routes and associated BlocProviders for the app's pages.
   static List<PageEntity> routes() {
     return [
       PageEntity(
@@ -76,40 +75,39 @@ class AppPages {
     ];
   }
 
-  /// This method used to return all the `BlocProvider()`. This will loop bloc
-  /// through the `routes()`.
+  /// Returns a list of all BlocProviders defined in the app's routes.
   static List<dynamic> allBlocProviders(BuildContext context) {
     List<dynamic> blocProviders = <dynamic>[];
 
     // Loop through routes()
-    for (var blocer in routes()) {
-      // This will check if some PageEntity doesn't have bloc.
-      if (blocer.bloc != null) {
-        blocProviders.add(blocer.bloc);
+    for (var pageEntity in routes()) {
+      // Check if the PageEntity has a bloc.
+      if (pageEntity.bloc != null) {
+        blocProviders.add(pageEntity.bloc);
       }
     }
     return blocProviders;
   }
 
-  /// This method a modal that covers entire screen.
+  /// Generates a route based on the provided [settings].
   static MaterialPageRoute generateRouteSettings(RouteSettings settings) {
-    // Check for route name matching when navigator gets triggered.
+    // Check for route name matching when navigator is triggered.
     if (settings.name != null) {
       var result = routes().where(
         (element) => element.route == settings.name,
       );
 
       if (result.isNotEmpty) {
-        debugPrint('Valid route name : ${result.first.route}');
+        debugPrint('Valid route name: ${result.first.route}');
 
-        // Get information if this app has been opened previously or not
+        // Get information on whether this app has been opened previously or not
         bool deviceFirstOpen = Global.storageService.getDeviceFirstOpen();
 
-        // If Welcome page has been opened previously. we will goto SignIn page.
+        // If the Welcome page has been opened previously, navigate to the SignIn page.
         if (result.first.route == AppRoutes.INITIAL && deviceFirstOpen) {
-          // Get information if user already logged in.
+          // Check if the user is already logged in.
           bool isLoggedIn = Global.storageService.getIsLoggedIn();
-          // If user already logged in, goto ApplicationPage.
+          // If the user is already logged in, navigate to the ApplicationPage.
           if (isLoggedIn) {
             return MaterialPageRoute(
               builder: (_) => const ApplicationPage(),
@@ -130,7 +128,7 @@ class AppPages {
       }
     }
 
-    debugPrint('Invalid route name : ${settings.name}');
+    debugPrint('Invalid route name: ${settings.name}');
     return MaterialPageRoute(
       builder: (_) => const SignIn(),
       settings: settings,
@@ -138,7 +136,7 @@ class AppPages {
   }
 }
 
-/// Unify routes, pages and BlocProvider.
+/// A class to represent a page and its associated route and BlocProvider.
 class PageEntity {
   String route;
   Widget page;

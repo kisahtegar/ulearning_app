@@ -1,9 +1,13 @@
 import '../entities/entities.dart';
 import '../utils/http_util.dart';
 
-/// This endpoint for Lesson API
+/// A class for handling Lesson-related API endpoints.
 class LessonAPI {
-  /// `/lessonList` endpoint that used to get lesson list.
+  /// Fetches a list of lessons.
+  ///
+  /// - [params] : The request parameters for the lesson list.
+  ///
+  /// Returns a [LessonListResponseEntity] containing the list of lessons.
   static Future<LessonListResponseEntity> lessonList({
     LessonRequestEntity? params,
   }) async {
@@ -15,7 +19,11 @@ class LessonAPI {
     return LessonListResponseEntity.fromJson(response);
   }
 
-  /// `/lessonDetail` endpoint that used to get lesson detail.
+  /// Fetches detailed information about a specific lesson.
+  ///
+  /// [params] - The request parameters for the lesson detail.
+  ///
+  /// Returns a [LessonDetailResponseEntity] with detailed lesson information.
   static Future<LessonDetailResponseEntity> lessonDetail({
     LessonRequestEntity? params,
   }) async {

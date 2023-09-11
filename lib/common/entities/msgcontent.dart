@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// A class representing message content.
 class Msgcontent {
-  final String? token;
-  final String? content;
-  final String? type;
-  final Timestamp? addtime;
+  final String? token; // The sender's token.
+  final String? content; // The content of the message.
+  final String? type; // The type of the message.
+  final Timestamp? addtime; // The timestamp when the message was added.
 
   Msgcontent({
     this.token,
@@ -13,6 +14,7 @@ class Msgcontent {
     this.addtime,
   });
 
+  /// Factory method to create a `Msgcontent` object from Firestore data.
   factory Msgcontent.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
@@ -26,6 +28,7 @@ class Msgcontent {
     );
   }
 
+  /// Converts the `Msgcontent` object to a Firestore-compatible Map.
   Map<String, dynamic> toFirestore() {
     return {
       if (token != null) "token": token,

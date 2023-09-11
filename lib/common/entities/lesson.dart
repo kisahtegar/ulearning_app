@@ -1,3 +1,4 @@
+/// A class representing a request for lesson data.
 class LessonRequestEntity {
   int? id;
 
@@ -10,10 +11,11 @@ class LessonRequestEntity {
       };
 }
 
+/// A class representing the response entity for a list of lessons.
 class LessonListResponseEntity {
-  int? code;
-  String? msg;
-  List<LessonItem>? data;
+  int? code; // The response code indicating success or failure.
+  String? msg; // A message associated with the response.
+  List<LessonItem>? data; // A list of lesson items.
 
   LessonListResponseEntity({
     this.code,
@@ -21,6 +23,7 @@ class LessonListResponseEntity {
     this.data,
   });
 
+  /// Creates a [LessonListResponseEntity] from a JSON map.
   factory LessonListResponseEntity.fromJson(Map<String, dynamic> json) =>
       LessonListResponseEntity(
         code: json["code"],
@@ -32,11 +35,11 @@ class LessonListResponseEntity {
       );
 }
 
-//api post response msg
+/// A class representing the response entity for lesson details.
 class LessonDetailResponseEntity {
-  int? code;
-  String? msg;
-  List<LessonVideoItem>? data;
+  int? code; // The response code indicating success or failure.
+  String? msg; // A message associated with the response.
+  List<LessonVideoItem>? data; // A list of lesson video items.
 
   LessonDetailResponseEntity({
     this.code,
@@ -44,6 +47,7 @@ class LessonDetailResponseEntity {
     this.data,
   });
 
+  /// Creates a [LessonDetailResponseEntity] from a JSON map.
   factory LessonDetailResponseEntity.fromJson(Map<String, dynamic> json) =>
       LessonDetailResponseEntity(
         code: json["code"],
@@ -55,12 +59,12 @@ class LessonDetailResponseEntity {
       );
 }
 
-// login result
+/// A class representing a lesson item.
 class LessonItem {
-  String? name;
-  String? description;
-  String? thumbnail;
-  int? id;
+  String? name; // The name of the lesson.
+  String? description; // The description of the lesson.
+  String? thumbnail; // The thumbnail image URL of the lesson.
+  int? id; // The unique identifier of the lesson.
 
   LessonItem({
     this.name,
@@ -69,6 +73,7 @@ class LessonItem {
     this.id,
   });
 
+  /// Creates a [LessonItem] from a JSON map.
   factory LessonItem.fromJson(Map<String, dynamic> json) => LessonItem(
         name: json["name"],
         description: json["description"],
@@ -84,10 +89,11 @@ class LessonItem {
       };
 }
 
+/// A class representing a lesson video item.
 class LessonVideoItem {
-  String? name;
-  String? url;
-  String? thumbnail;
+  String? name; // The name of the video.
+  String? url; // The URL of the video.
+  String? thumbnail; // The thumbnail image URL of the video.
 
   LessonVideoItem({
     this.name,
@@ -95,6 +101,7 @@ class LessonVideoItem {
     this.thumbnail,
   });
 
+  /// Creates a [LessonVideoItem] from a JSON map.
   factory LessonVideoItem.fromJson(Map<String, dynamic> json) =>
       LessonVideoItem(
         name: json["name"],

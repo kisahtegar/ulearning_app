@@ -1,13 +1,16 @@
+/// A class representing the response entity for contacts.
 class ContactResponseEntity {
-  int? code;
-  String? msg;
-  List<ContactItem>? data;
+  int? code; // The response code indicating success or failure.
+  String? msg; // A message associated with the response.
+  List<ContactItem>? data; // A list of contact items.
 
   ContactResponseEntity({
     this.code,
     this.msg,
     this.data,
   });
+
+  /// Creates a [ContactResponseEntity] from a JSON map.
   factory ContactResponseEntity.fromJson(Map<String, dynamic> json) =>
       ContactResponseEntity(
         code: json["code"],
@@ -18,6 +21,7 @@ class ContactResponseEntity {
                 json["data"].map((x) => ContactItem.fromJson(x))),
       );
 
+  /// Converts the [ContactResponseEntity] to a JSON map.
   Map<String, dynamic> toJson() => {
         "counts": code,
         "msg": msg,
@@ -27,13 +31,14 @@ class ContactResponseEntity {
       };
 }
 
-// login result
+/// A class representing a contact item.
 class ContactItem {
-  String? token;
-  String? name;
-  String? description;
-  String? avatar;
-  int? online;
+  String? token; // The unique token associated with the contact.
+  String? name; // The name of the contact.
+  String?
+      description; // A description or additional information about the contact.
+  String? avatar; // The avatar image URL of the contact.
+  int? online; // Indicates whether the contact is online (1) or offline (0).
 
   ContactItem({
     this.token,
@@ -43,6 +48,7 @@ class ContactItem {
     this.online,
   });
 
+  /// Creates a [ContactItem] from a JSON map.
   factory ContactItem.fromJson(Map<String, dynamic> json) => ContactItem(
         token: json["token"],
         name: json["name"],
@@ -51,6 +57,7 @@ class ContactItem {
         online: json["online"],
       );
 
+  /// Converts the [ContactItem] to a JSON map.
   Map<String, dynamic> toJson() => {
         "token": token,
         "name": name,

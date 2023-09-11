@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../entities/entities.dart';
 import '../values/constant.dart';
 
-/// This `StorageService` used to store data applications.
+/// A service for managing data storage using `SharedPreferences`.
 class StorageService {
   /// `SharedPreferences` is used for storing data key-value pair in the Android
   /// and iOS. `SharedPreference` let you read and write key-value pair in a couple
@@ -22,35 +20,33 @@ class StorageService {
     return this;
   }
 
-  /// This used to saving boolean value
+  /// Saves a boolean value with the specified key.
   Future<bool> setBool(String key, bool value) async {
     return await _prefs.setBool(key, value);
   }
 
-  /// This used to saving string value
+  /// Saves a string value with the specified key.
   Future<bool> setString(String key, String value) async {
     return await _prefs.setString(key, value);
   }
 
-  /// This used to read data from the storage through `SharedPreferences`.
-  /// We only required to pass the key only.
+  /// Checks if the device has been opened for the first time.
   bool getDeviceFirstOpen() {
     return _prefs.getBool(AppConstants.STORAGE_DEVICE_OPEN_FIRST_TIME) ?? false;
   }
 
-  /// This used to read data from the storage through `SharedPreferences`
+  /// Checks if a user is logged in.
   bool getIsLoggedIn() {
-    return _prefs.getString(AppConstants.STORAGE_USER_TOKEN_KEY) == null
-        ? false
-        : true;
+    // TODO: check this code
+    return _prefs.getString(AppConstants.STORAGE_USER_TOKEN_KEY) != null;
   }
 
-  /// Remove previous data from the storage through `SharedPreferences`.
+  /// Removes data associated with a specific key.
   Future<bool> remove(String key) {
     return _prefs.remove(key);
   }
 
-  /// This method is used to get user profile information.
+  /// Retrieves the user's profile information from storage.
   UserItem getUserProfile() {
     // this come from local storage data.
     var profileOffline =
@@ -64,7 +60,7 @@ class StorageService {
     return UserItem();
   }
 
-  /// This method is used to get user token key.
+  /// Retrieves the user's authentication token.
   String getUserToken() {
     return _prefs.getString(AppConstants.STORAGE_USER_TOKEN_KEY) ?? '';
   }

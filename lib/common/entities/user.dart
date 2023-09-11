@@ -2,16 +2,16 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Models class for Login requests
+/// A class representing the login request entity.
 class LoginRequestEntity {
-  int? type;
-  String? name;
-  String? description;
-  String? email;
-  String? phone;
-  String? avatar;
-  String? open_id;
-  int? online;
+  int? type; // The type of login.
+  String? name; // The user's name.
+  String? description; // A description associated with the user.
+  String? email; // The user's email.
+  String? phone; // The user's phone number.
+  String? avatar; // The user's avatar.
+  String? open_id; // The user's open ID.
+  int? online; // The user's online status.
 
   LoginRequestEntity({
     this.type,
@@ -24,7 +24,7 @@ class LoginRequestEntity {
     this.online,
   });
 
-  /// This method will turn object to json.
+  /// Converts the `LoginRequestEntity` object to a JSON Map.
   Map<String, dynamic> toJson() => {
         "type": type,
         "name": name,
@@ -39,9 +39,9 @@ class LoginRequestEntity {
 
 /// API post response message.
 class UserLoginResponseEntity {
-  int? code;
-  String? msg;
-  UserItem? data;
+  int? code; // The response code.
+  String? msg; // The response message.
+  UserItem? data; // User item data.
 
   UserLoginResponseEntity({
     this.code,
@@ -49,7 +49,7 @@ class UserLoginResponseEntity {
     this.data,
   });
 
-  /// Maping and return to object.
+  /// Factory method to create a `UserLoginResponseEntity` object from JSON data.
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
       UserLoginResponseEntity(
         code: json["code"],
@@ -58,15 +58,15 @@ class UserLoginResponseEntity {
       );
 }
 
-/// This class is used for Login result, showing user item information.
+/// A class representing user item information.
 class UserItem {
-  String? access_token;
-  String? token;
-  String? name;
-  String? description;
-  String? avatar;
-  int? online;
-  int? type;
+  String? access_token; // The user's access token.
+  String? token; // The user's token.
+  String? name; // The user's name.
+  String? description; // A description associated with the user.
+  String? avatar; // The user's avatar.
+  int? online; // The user's online status.
+  int? type; // The user's type.
 
   UserItem({
     this.access_token,
@@ -78,7 +78,7 @@ class UserItem {
     this.type,
   });
 
-  /// Maping and return to object.
+  /// Factory method to create a `UserItem` object from JSON data.
   factory UserItem.fromJson(Map<String, dynamic> json) => UserItem(
         access_token: json["access_token"],
         token: json["token"],
@@ -89,7 +89,7 @@ class UserItem {
         type: json["type"],
       );
 
-  // Change object to json.
+  /// Converts the `UserItem` object to a JSON Map.
   Map<String, dynamic> toJson() => {
         "access_token": access_token,
         "token": token,
@@ -101,12 +101,13 @@ class UserItem {
       };
 }
 
+/// A class representing user data.
 class UserData {
-  final String? token;
-  final String? name;
-  final String? avatar;
-  final String? description;
-  final int? online;
+  final String? token; // The user's token.
+  final String? name; // The user's name.
+  final String? avatar; // The user's avatar.
+  final String? description; // A description associated with the user.
+  final int? online; // The user's online status.
 
   UserData({
     this.token,
@@ -116,6 +117,7 @@ class UserData {
     this.online,
   });
 
+  /// Factory method to create a `UserData` object from Firestore data.
   factory UserData.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
@@ -130,6 +132,7 @@ class UserData {
     );
   }
 
+  /// Converts the `UserData` object to a Firestore-compatible Map.
   Map<String, dynamic> toFirestore() {
     return {
       if (token != null) "token": token,

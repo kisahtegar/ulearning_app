@@ -1,6 +1,6 @@
 part of 'register_bloc.dart';
 
-/// Implement `RegisterState`.
+/// The `RegisterState` class represents the state of the user registration process.
 @immutable
 class RegisterState {
   final String userName;

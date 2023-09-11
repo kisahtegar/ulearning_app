@@ -3,10 +3,10 @@ import 'package:bloc/bloc.dart';
 part 'welcome_event.dart';
 part 'welcome_state.dart';
 
-/// Implement `WelcomeBloc`.s
+/// A Bloc responsible for managing the state of the Welcome screen.
 class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
   WelcomeBloc() : super(WelcomeState()) {
-    // handle welcome event pages.
+    // Handle WelcomeEvent to manage pages.
     on<WelcomeEvent>((event, emit) {
       emit(
         WelcomeState(

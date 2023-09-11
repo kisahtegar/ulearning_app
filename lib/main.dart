@@ -7,11 +7,16 @@ import 'common/routes/routes.dart';
 import 'common/values/colors.dart';
 import 'global.dart';
 
+/// The main entry point for the Ulearning App.
 void main() async {
+  // Initialize global configurations and settings.
   await Global.init();
+
+  // Run the main application.
   runApp(const App());
 }
 
+/// The root widget of the Ulearning App.
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -20,10 +25,10 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [...AppPages.allBlocProviders(context)],
       child: ScreenUtilInit(
-        // this will change the size adapting, when we used size with this package
+        // Initialize screen adaptation settings.
         designSize: const Size(375, 812),
         builder: (context, child) => MaterialApp(
-          builder: EasyLoading.init(), // entry point loading
+          builder: EasyLoading.init(), // Initialize loading indicator.
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: const AppBarTheme(

@@ -8,7 +8,7 @@ import '../../common/values/constant.dart';
 import '../../global.dart';
 import 'bloc/welcome_bloc.dart';
 
-/// Implement Welcome page.
+/// Welcome page that provides an introduction to the app.
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
 
@@ -39,7 +39,7 @@ class _WelcomeState extends State<Welcome> {
                       BlocProvider.of<WelcomeBloc>(context).add(WelcomeEvent());
                     },
                     children: [
-                      _page(
+                      _buildPage(
                         context: context,
                         index: 1,
                         imagePath: 'assets/images/reading.png',
@@ -48,7 +48,7 @@ class _WelcomeState extends State<Welcome> {
                             'Forget about a for of paper all knowledge in one learning',
                         buttonName: 'Next',
                       ),
-                      _page(
+                      _buildPage(
                         context: context,
                         index: 2,
                         imagePath: 'assets/images/boy.png',
@@ -57,7 +57,7 @@ class _WelcomeState extends State<Welcome> {
                             'Always keep in touch with your tutor & friends. Lets get connected.',
                         buttonName: 'Next',
                       ),
-                      _page(
+                      _buildPage(
                         context: context,
                         index: 3,
                         imagePath: 'assets/images/man.png',
@@ -94,8 +94,8 @@ class _WelcomeState extends State<Welcome> {
     );
   }
 
-  /// Dynamic welcome page view.
-  Column _page({
+  /// Builds a dynamic page.
+  Column _buildPage({
     required BuildContext context,
     required int index,
     required String imagePath,
@@ -137,7 +137,7 @@ class _WelcomeState extends State<Welcome> {
           onTap: () {
             // Within 0-2
             if (index < 3) {
-              // animation
+              // Animation to the next page
               pageController.animateToPage(
                 index,
                 duration: const Duration(milliseconds: 500),
@@ -148,14 +148,14 @@ class _WelcomeState extends State<Welcome> {
                 'The value is ${Global.storageService.getDeviceFirstOpen()}',
               );
 
-              // When app open the first time, we can save the value to indicates
-              // that the user has already opened the welome page.
+              // When app opens for the first time, save the value to indicate
+              // that the user has already opened the welcome page.
               Global.storageService.setBool(
                 AppConstants.STORAGE_DEVICE_OPEN_FIRST_TIME,
                 true,
               );
 
-              // jump to new page.
+              // Navigate to a new page and remove the previous pages from the stack.
               Navigator.of(context).pushNamedAndRemoveUntil(
                 '/sign_in',
                 (route) => false,

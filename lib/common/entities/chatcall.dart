@@ -2,17 +2,19 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// A class representing a chat or call entity in Firestore.
 class ChatCall {
-  final String? doc_id;
-  final String? from_token;
-  final String? to_token;
-  final String? from_name;
-  final String? to_name;
-  final String? from_avatar;
-  final String? to_avatar;
-  final String? call_time;
-  final String? type;
-  final Timestamp? last_time;
+  final String? doc_id; // The unique identifier for the chat or call document.
+  final String? from_token; // The token of the sender.
+  final String? to_token; // The token of the recipient.
+  final String? from_name; // The name of the sender.
+  final String? to_name; // The name of the recipient.
+  final String? from_avatar; // The avatar of the sender.
+  final String? to_avatar; // The avatar of the recipient.
+  final String? call_time; // The timestamp when the call was made.
+  final String?
+      type; // The type of the chat or call (e.g., chat, voice call, video call).
+  final Timestamp? last_time; // The timestamp of the last activity.
 
   ChatCall({
     this.doc_id,
@@ -27,6 +29,7 @@ class ChatCall {
     this.last_time,
   });
 
+  /// Creates a [ChatCall] object from Firestore data.
   factory ChatCall.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
@@ -45,6 +48,7 @@ class ChatCall {
     );
   }
 
+  /// Converts the [ChatCall] object to Firestore data.
   Map<String, dynamic> toFirestore() {
     return {
       if (from_token != null) "from_token": from_token,

@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+/// A class representing a request for course data.
 class CourseRequestEntity {
   int? id;
 
@@ -12,6 +13,7 @@ class CourseRequestEntity {
       };
 }
 
+/// A class representing a search request.
 class SearchRequestEntity {
   String? search;
 
@@ -24,11 +26,11 @@ class SearchRequestEntity {
       };
 }
 
-/// This class is used for Course List Response Entity
+/// A class representing the response entity for a list of courses.
 class CourseListResponseEntity {
-  int? code;
-  String? msg;
-  List<CourseItem>? data;
+  int? code; // The response code indicating success or failure.
+  String? msg; // A message associated with the response.
+  List<CourseItem>? data; // A list of course items.
 
   CourseListResponseEntity({
     this.code,
@@ -50,11 +52,11 @@ class CourseListResponseEntity {
       );
 }
 
-//api post response msg
+/// A class representing the response entity for course details.
 class CourseDetailResponseEntity {
-  int? code;
-  String? msg;
-  CourseItem? data;
+  int? code; // The response code indicating success or failure.
+  String? msg; // A message associated with the response.
+  CourseItem? data; // Course item data.
 
   CourseDetailResponseEntity({
     this.code,
@@ -62,6 +64,7 @@ class CourseDetailResponseEntity {
     this.data,
   });
 
+  /// Creates a [CourseDetailResponseEntity] from a JSON map.
   factory CourseDetailResponseEntity.fromJson(Map<String, dynamic> json) =>
       CourseDetailResponseEntity(
         code: json["code"],
@@ -70,6 +73,7 @@ class CourseDetailResponseEntity {
       );
 }
 
+/// A class representing a request for author data.
 class AuthorRequestEntity {
   String? token;
 
@@ -82,11 +86,11 @@ class AuthorRequestEntity {
       };
 }
 
-//api post response msg
+/// A class representing the response entity for author details.
 class AuthorResponseEntity {
-  int? code;
-  String? msg;
-  AuthorItem? data;
+  int? code; // The response code indicating success or failure.
+  String? msg; // A message associated with the response.
+  AuthorItem? data; // Author item data.
 
   AuthorResponseEntity({
     this.code,
@@ -94,6 +98,7 @@ class AuthorResponseEntity {
     this.data,
   });
 
+  /// Creates an [AuthorResponseEntity] from a JSON map.
   factory AuthorResponseEntity.fromJson(Map<String, dynamic> json) =>
       AuthorResponseEntity(
         code: json["code"],
@@ -102,7 +107,7 @@ class AuthorResponseEntity {
       );
 }
 
-// login result
+/// A class representing an author item.
 class AuthorItem {
   String? token;
   String? name;
@@ -126,6 +131,7 @@ class AuthorItem {
     this.online,
   });
 
+  /// Creates an [AuthorItem] from a JSON map.
   factory AuthorItem.fromJson(Map<String, dynamic> json) => AuthorItem(
         token: json["token"],
         name: json["name"],
@@ -151,7 +157,7 @@ class AuthorItem {
       };
 }
 
-// login result
+/// A class representing a course item.
 class CourseItem {
   String? user_token;
   String? name;
@@ -183,6 +189,7 @@ class CourseItem {
     this.id,
   });
 
+  /// Creates a [CourseItem] from a JSON map.
   factory CourseItem.fromJson(Map<String, dynamic> json) => CourseItem(
         user_token: json["user_token"],
         name: json["name"],

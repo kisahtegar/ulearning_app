@@ -5,8 +5,11 @@ import '../../common/values/colors.dart';
 import '../home/home_page.dart';
 import '../profile/profile_page.dart';
 
-/// List of build page.
+/// Builds a widget based on the given index.
+///
+/// The [index] determines which widget to build and return.
 Widget buildPage(int index) {
+  // Define a list of widgets corresponding to different pages.
   List<Widget> widgets = [
     const HomePage(),
     const Center(child: Text('Search')),
@@ -14,10 +17,12 @@ Widget buildPage(int index) {
     const Center(child: Text('Chat')),
     const ProfilePage(),
   ];
+
+  // Return the widget based on the provided index.
   return widgets[index];
 }
 
-/// List of bottom tabs
+/// List of bottom navigation bar items.
 List<BottomNavigationBarItem> bottomTabs = [
   BottomNavigationBarItem(
     label: 'Home',

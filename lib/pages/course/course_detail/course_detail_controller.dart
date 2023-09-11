@@ -9,13 +9,14 @@ import '../../../common/routes/routes.dart';
 import '../../../common/widgets/flutter_toast.dart';
 import 'bloc/course_detail_bloc.dart';
 
-/// Implement `CourseDetailController` class.
+/// The controller class for managing course details.
 class CourseDetailController {
   final BuildContext context;
 
+  /// Creates a new instance of [CourseDetailController] with the given [context].
   CourseDetailController({required this.context});
 
-  /// Initialize `CourseDetailController` class.
+  /// Initializes the controller by loading course and lesson data.
   void init() async {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
 
@@ -23,27 +24,26 @@ class CourseDetailController {
     asyncLoadLessonData(args["id"]);
   }
 
-  /// This method used to load the course data.
+  /// Loads course data asynchronously.
   asyncLoadCourseData(int? id) async {
     CourseRequestEntity courseRequestEntity = CourseRequestEntity();
     courseRequestEntity.id = id;
 
     var result = await CourseAPI.courseDetail(params: courseRequestEntity);
     if (result.code == 200) {
-      // means if context is available
+      // Check if the context is available
       if (context.mounted) {
-        debugPrint('---------context is ready------');
+        debugPrint('Context is ready.');
         context.read<CourseDetailBloc>().add(TriggerCourseDetail(result.data!));
       } else {
-        debugPrint('-------context is not available-------');
+        debugPrint('Context is not available.');
       }
     } else {
-      toastInfo(
-          msg: "Something went wrong and check the log in the laravel.log");
+      toastInfo(msg: "Something went wrong. Check the log in the laravel.log.");
     }
   }
 
-  /// This method used to go buy course.
+  /// Initiates the process to buy a course.
   Future<void> goBuy(int? id) async {
     EasyLoading.show(
       indicator: const CircularProgressIndicator(),
@@ -55,7 +55,7 @@ class CourseDetailController {
     var result = await CourseAPI.coursePay(params: courseRequestEntity);
     EasyLoading.dismiss();
     if (result.code == 200) {
-      // make cleaner format of url / remove % from url
+      // Clean up the URL format and remove '%'
       var url = Uri.decodeFull(result.data!);
 
       var res = await Navigator.of(context).pushNamed(
@@ -64,16 +64,16 @@ class CourseDetailController {
       );
 
       if (res == "success") {
-        toastInfo(msg: "You bought it successfully");
+        toastInfo(msg: "You bought it successfully.");
       }
       // print('--------my returned stripe url is $url');
     } else {
-      debugPrint("statement");
+      debugPrint("Statement");
       toastInfo(msg: result.msg!);
     }
   }
 
-  /// This method used to load the lesson data.
+  /// Loads lesson data asynchronously.
   asyncLoadLessonData(int? id) async {
     LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
     lessonRequestEntity.id = id;
@@ -96,10 +96,10 @@ class CourseDetailController {
         // print('my lesson list is ${result.data}');
         // print('my lesson data is ${result.data![0].thumbnail}');
       } else {
-        print('----context is not read ----');
+        debugPrint('Context is not ready.');
       }
     } else {
-      toastInfo(msg: "Something went wrong check the log");
+      toastInfo(msg: "Something went wrong. Check the log.");
     }
   }
 }

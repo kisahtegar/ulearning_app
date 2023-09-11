@@ -6,7 +6,11 @@ import '../../common/entities/entities.dart';
 import '../../global.dart';
 import 'bloc/home_page_bloc.dart';
 
-/// Implement Home controller class.
+/// The `HomeController` class handles the initialization and data retrieval
+/// for the home page.
+///
+/// It follows the singleton pattern to ensure there is only one instance of
+/// this controller throughout the app.
 class HomeController {
   // The singleton pattern is a pattern used in object-oriented programming which
   // ensures that a class has only one instance and also provides a global point
@@ -27,19 +31,20 @@ class HomeController {
   }
 
   late BuildContext context;
-  // Getting user profile from local storage data.
+
+  /// Gets the user profile from local storage data.
   UserItem get userProfile => Global.storageService.getUserProfile();
 
-  /// Initialize our home controller.
+  /// Initializes the home controller and fetches data.
   Future<void> init() async {
-    // checking if token not empty. and fixing some error while logout because
-    // we delete user token while logout. So, we make sure that user is logged in
-    // and then make an API call.
+    // Check if the user token is not empty.
     if (Global.storageService.getUserToken().isNotEmpty) {
+      // Make an API call to fetch course data.
       var result = await CourseAPI.courseList();
       debugPrint('The result is ${result.data![0].thumbnail}');
 
       if (result.code == 200) {
+        // Ensure the context is still mounted before emitting events to the bloc.
         // Fixing async gaps
         if (context.mounted) {
           context.read<HomePageBloc>().add(HomePageCourseItem(result.data!));

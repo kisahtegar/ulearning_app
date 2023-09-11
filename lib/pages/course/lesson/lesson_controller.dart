@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' show BuildContext, ModalRoute;
+import 'package:flutter/material.dart'
+    show BuildContext, ModalRoute, debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 
@@ -6,22 +7,23 @@ import '../../../common/apis/lesson_api.dart';
 import '../../../common/entities/entities.dart';
 import 'bloc/lesson_bloc.dart';
 
-/// Implement `LessonController` class.
+/// The controller class for managing lessons.
 class LessonController {
   final BuildContext context;
   VideoPlayerController? videoPlayerController;
 
+  /// Creates a new instance of [LessonController] with the given [context].
   LessonController({required this.context});
 
-  /// Initialize controller.
+  /// Initializes the lesson controller and loads lesson data.
   void init() async {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-    //set the earlier video to false means, stop playing
+    // Set the earlier video to false, meaning stop playing
     context.read<LessonBloc>().add(const TriggerPlay(false));
     await asyncLoadLessonData(args['id']);
   }
 
-  /// This function is used to load lesson data.
+  /// Loads lesson data asynchronously.
   Future<void> asyncLoadLessonData(int? id) async {
     LessonRequestEntity lessonRequestEntity = LessonRequestEntity();
     lessonRequestEntity.id = id;
@@ -32,12 +34,12 @@ class LessonController {
         context.read<LessonBloc>().add(TriggerLessonVideo(result.data!));
         if (result.data!.isNotEmpty) {
           var url = result.data!.elementAt(0).url;
-          print('my url is ${url}');
-          //this url is important for init video player
+          debugPrint('My URL is $url');
+          // This URL is important for initializing the video player
           videoPlayerController = VideoPlayerController.networkUrl(
             Uri.parse(url!),
           );
-          //here actually stream starts to happen
+          // Here, the video player is initialized
           var initPlayer = videoPlayerController?.initialize();
           context.read<LessonBloc>().add(TriggerUrlItem(initPlayer));
         }
@@ -45,7 +47,7 @@ class LessonController {
     }
   }
 
-  // This function is used to to play video
+  /// Plays the video with the given URL.
   void playVideo(String url) {
     if (videoPlayerController != null) {
       videoPlayerController?.pause();
@@ -54,12 +56,12 @@ class LessonController {
     videoPlayerController = VideoPlayerController.networkUrl(
       Uri.parse(url),
     );
-    // Redo everything we done already
+    // Reset everything we have done already
     context.read<LessonBloc>().add(const TriggerPlay(false));
     context.read<LessonBloc>().add(const TriggerUrlItem(null));
-    // initialize the video player
+    // Initialize the video player
     var initPlayer = videoPlayerController?.initialize().then((_) {
-      // setting to beginning video
+      // Seek to the beginning of the video
       videoPlayerController?.seekTo(const Duration(milliseconds: 0));
     });
     context.read<LessonBloc>().add(TriggerUrlItem(initPlayer));

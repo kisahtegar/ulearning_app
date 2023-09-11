@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../common/widgets/flutter_toast.dart';
 import 'bloc/register_bloc.dart';
 
-/// This `RegisterController` used to handle registration logic.
+/// The `RegisterController` class handles registration logic for the sign-up process.
 class RegisterController {
   final BuildContext context;
   const RegisterController(this.context);
 
-  /// Handle the registration email and password.
+  /// Handles user registration using email and password.
   void handleEmailRegister() async {
     final state = context.read<RegisterBloc>().state;
     String userName = state.userName;
@@ -31,7 +31,7 @@ class RegisterController {
       toastInfo(msg: 'Password cannot be empty');
       return;
     }
-    if (rePassword.isEmpty) {
+    if (rePassword.isEmpty || password != rePassword) {
       toastInfo(msg: 'Your password confirmation is wrong');
       return;
     }
@@ -44,22 +44,25 @@ class RegisterController {
         password: password,
       );
 
-      // When success create user, we need to do more things...
+      // When successfully creating a user, additional steps are required...
       if (credential.user != null) {
         await credential.user?.sendEmailVerification();
         await credential.user?.updateDisplayName(userName);
-        // default photo from server.
+
+        // Default photo from the server.
         String photoUrl = 'uploads/default.png';
-        await credential.user?.updatePhotoURL(photoUrl); // update photo url
+        await credential.user?.updatePhotoURL(photoUrl); // Update photo URL
+
         toastInfo(
           msg:
-              'An email has been sent to your registered email. To activate it please check your email box',
+              'An email has been sent to your registered email. To activate your account, please check your email inbox',
         );
+
         Navigator.of(context).pop(); // Pop from SignUp page.
       }
     } on FirebaseAuthException catch (e) {
-      // Handle error from FirebaseAuthException.
-      if (e.code == 'week-password') {
+      // Handle errors from FirebaseAuthException.
+      if (e.code == 'weak-password') {
         toastInfo(msg: 'The password provided is too weak');
       } else if (e.code == 'email-already-in-use') {
         toastInfo(msg: 'The email is already in use');
@@ -67,7 +70,7 @@ class RegisterController {
         toastInfo(msg: 'Your email ID is invalid');
       }
     } catch (_) {
-      // We can implement this error.
+      // Implement error handling logic here.
     }
   }
 }

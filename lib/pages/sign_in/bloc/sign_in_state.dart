@@ -1,6 +1,6 @@
 part of 'sign_in_bloc.dart';
 
-/// Implement `SignInState`.
+/// The `SignInState` class represents the state of the sign-in form.
 @immutable
 class SignInState {
   final String email;

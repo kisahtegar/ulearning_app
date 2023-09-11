@@ -6,7 +6,7 @@ import '../../common/values/colors.dart';
 import 'application_widgets.dart';
 import 'bloc/app_bloc.dart';
 
-/// Implement `ApplicationPage`.
+/// A StatefulWidget representing the main application page.
 class ApplicationPage extends StatefulWidget {
   const ApplicationPage({super.key});
 

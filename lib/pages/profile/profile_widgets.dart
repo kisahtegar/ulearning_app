@@ -5,7 +5,7 @@ import '../../common/routes/names.dart';
 import '../../common/values/colors.dart';
 import '../../common/widgets/base_text_widget.dart';
 
-/// Showing app bar for profile page
+/// Builds an AppBar for the profile page.
 AppBar buildAppBar() {
   return AppBar(
     title: Row(
@@ -27,7 +27,7 @@ AppBar buildAppBar() {
   );
 }
 
-/// Profile icon and edit button.
+/// Widget that displays the profile icon with an edit button.
 Widget profileIconAndEditButton() {
   return Container(
     width: 80.w,
@@ -59,7 +59,7 @@ var imagesInfo = <String, String>{
   "Reminders": "cube.png",
 };
 
-/// Showing list view buttons.
+/// Builds a ListView of buttons for profile settings.
 Widget buildListView(BuildContext context) {
   return Column(
     children: [

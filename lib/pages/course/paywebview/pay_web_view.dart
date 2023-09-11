@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +56,7 @@ class _PayWebViewState extends State<PayWebView> {
                     JavascriptChannel(
                       name: "Pay",
                       onMessageReceived: (JavascriptMessage message) {
-                        print(message.message);
+                        debugPrint(message.message);
                         Navigator.of(context).pop(message.message);
                       },
                     ),
